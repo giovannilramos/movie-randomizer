@@ -1,25 +1,16 @@
 package br.com.giovanniramos.movie_randomizer.services;
 
+import br.com.giovanniramos.movie_randomizer.exceptions.InternalServerErrorException;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import io.minio.StatObjectArgs;
-import io.minio.errors.ErrorResponseException;
-import io.minio.errors.InsufficientDataException;
-import io.minio.errors.InternalException;
-import io.minio.errors.InvalidResponseException;
-import io.minio.errors.ServerException;
-import io.minio.errors.XmlParserException;
 import io.minio.http.Method;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Service
@@ -35,15 +26,19 @@ public class MinioService {
         this.bucket = bucket;
     }
 
-    public void putMinioObject(final InputStream fileInputStream, final String object) throws IOException, ServerException,
-            InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException,
-            InvalidResponseException, XmlParserException, InternalException {
-        minioClient.putObject(PutObjectArgs.builder()
-                .bucket(bucket)
-                .object(object)
-                .stream(fileInputStream, fileInputStream.available(), PART_SIZE)
-                .contentType(CONTENT_TYPE)
-                .build());
+    public void putMinioObject(final MultipartFile movieCover, final String object) {
+        try {
+            final var inputStream = movieCover.getInputStream();
+            minioClient.putObject(PutObjectArgs.builder()
+                    .bucket(bucket)
+                    .object(object)
+                    .stream(inputStream, inputStream.available(), PART_SIZE)
+                    .contentType(CONTENT_TYPE)
+                    .build());
+        } catch (final Exception e) {
+            log.error("Minio put object failed. object: {}, error: {}", object, e.getMessage(), e);
+            throw new InternalServerErrorException("Put movie cover failed", e);
+        }
     }
 
     public String getMinioObjectUrl(final String object) {
@@ -64,9 +59,12 @@ public class MinioService {
         }
     }
 
-    public void removeMinioObject(final String object) throws ServerException, InsufficientDataException,
-            ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException,
-            XmlParserException, InternalException {
-        minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucket).object(object).build());
+    public void removeMinioObject(final String object) {
+        try {
+            minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucket).object(object).build());
+        } catch (final Exception e) {
+            log.error("Error when remove file from minio. object: {}, error: {}", object, e.getCause(), e);
+            throw new InternalServerErrorException("Error when remove movie cover", e);
+        }
     }
 }

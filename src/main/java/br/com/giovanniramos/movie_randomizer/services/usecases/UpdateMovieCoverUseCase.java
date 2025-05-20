@@ -1,6 +1,5 @@
 package br.com.giovanniramos.movie_randomizer.services.usecases;
 
-import br.com.giovanniramos.movie_randomizer.exceptions.InternalServerErrorException;
 import br.com.giovanniramos.movie_randomizer.exceptions.NotFoundException;
 import br.com.giovanniramos.movie_randomizer.repositories.MovieRepository;
 import br.com.giovanniramos.movie_randomizer.services.MinioService;
@@ -23,11 +22,6 @@ public class UpdateMovieCoverUseCase {
                     return new NotFoundException("Movie not found");
                 });
 
-        try {
-            minioService.putMinioObject(movieCover.getInputStream(), movieEntity.getMovieCoverId());
-        } catch (final Exception e) {
-            log.error("Update movie cover into Minio failed. id: {}, error: {}", id, e.getMessage(), e);
-            throw new InternalServerErrorException("Update movie cover failed", e.getCause());
-        }
+        minioService.putMinioObject(movieCover, movieEntity.getMovieCoverId());
     }
 }

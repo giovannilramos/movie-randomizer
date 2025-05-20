@@ -19,7 +19,7 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = { BaseException.class })
-    public ResponseEntity<ExceptionResponse> globalExceptionHandler(final BaseException baseException) {
+    public ResponseEntity<ExceptionResponse> baseExceptionHandler(final BaseException baseException) {
         return ResponseEntity
                 .status(HttpStatus.valueOf(baseException.getCode()))
                 .body(new ExceptionResponse(baseException.getMessage(), baseException.getCode(), LocalDateTime.now()));
