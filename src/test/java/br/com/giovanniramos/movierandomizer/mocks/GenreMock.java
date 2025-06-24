@@ -1,6 +1,6 @@
-package br.com.giovanniramos.movie_randomizer.services.mocks;
+package br.com.giovanniramos.movierandomizer.mocks;
 
-import br.com.giovanniramos.movie_randomizer.models.GenreModel;
+import br.com.giovanniramos.movierandomizer.models.GenreModel;
 
 import java.util.UUID;
 

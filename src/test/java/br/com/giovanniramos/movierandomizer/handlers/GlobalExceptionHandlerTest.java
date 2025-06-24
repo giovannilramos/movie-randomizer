@@ -1,6 +1,6 @@
-package br.com.giovanniramos.movie_randomizer.handlers;
+package br.com.giovanniramos.movierandomizer.handlers;
 
-import br.com.giovanniramos.movie_randomizer.exceptions.NotFoundException;
+import br.com.giovanniramos.movierandomizer.exceptions.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -20,6 +20,18 @@ class GlobalExceptionHandlerTest {
 
     @Mock
     private MethodArgumentNotValidException methodArgumentNotValidException;
+
+    @Test
+    void shouldHandleDefaultException() {
+        final var internalError = new RuntimeException("Internal error");
+
+        final var exceptionHandledResponse = new GlobalExceptionHandler()
+                .defaultExceptionHandler(internalError);
+
+        assertNotNull(exceptionHandledResponse.getBody());
+        assertEquals(500, exceptionHandledResponse.getStatusCode().value());
+        assertEquals("Internal Server Error", exceptionHandledResponse.getBody().message());
+    }
 
     @Test
     void shouldHandleBaseException() {

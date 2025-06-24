@@ -1,6 +1,6 @@
-package br.com.giovanniramos.movie_randomizer.services.mocks;
+package br.com.giovanniramos.movierandomizer.mocks;
 
-import br.com.giovanniramos.movie_randomizer.models.MovieModel;
+import br.com.giovanniramos.movierandomizer.models.MovieModel;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -8,8 +8,8 @@ import java.time.LocalTime;
 import java.util.Set;
 import java.util.UUID;
 
-import static br.com.giovanniramos.movie_randomizer.enums.MovieTypeEnum.MOVIE;
-import static br.com.giovanniramos.movie_randomizer.services.mocks.GenreMock.genreModelMock;
+import static br.com.giovanniramos.movierandomizer.enums.MovieTypeEnum.MOVIE;
+import static br.com.giovanniramos.movierandomizer.mocks.GenreMock.genreModelMock;
 
 public class MovieMock {
     public static MovieModel movieModelMock() {

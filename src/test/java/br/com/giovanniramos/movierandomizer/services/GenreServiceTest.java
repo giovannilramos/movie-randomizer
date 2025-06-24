@@ -1,7 +1,7 @@
-package br.com.giovanniramos.movie_randomizer.services;
+package br.com.giovanniramos.movierandomizer.services;
 
-import br.com.giovanniramos.movie_randomizer.services.usecases.AddGenreUseCase;
-import br.com.giovanniramos.movie_randomizer.services.usecases.ListGenresUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.AddGenreUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.ListGenresUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static br.com.giovanniramos.movie_randomizer.services.mocks.GenreMock.genreModelMock;
+import static br.com.giovanniramos.movierandomizer.mocks.GenreMock.genreModelMock;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;

@@ -1,13 +1,13 @@
-package br.com.giovanniramos.movie_randomizer.services;
+package br.com.giovanniramos.movierandomizer.services;
 
-import br.com.giovanniramos.movie_randomizer.services.usecases.AddMovieUseCase;
-import br.com.giovanniramos.movie_randomizer.services.usecases.GetMovieDetailsUseCase;
-import br.com.giovanniramos.movie_randomizer.services.usecases.LastWatchedMovieUseCase;
-import br.com.giovanniramos.movie_randomizer.services.usecases.MovieDrawUseCase;
-import br.com.giovanniramos.movie_randomizer.services.usecases.RemoveMovieUseCase;
-import br.com.giovanniramos.movie_randomizer.services.usecases.ShowMovieListUseCase;
-import br.com.giovanniramos.movie_randomizer.services.usecases.UpdateMovieCoverUseCase;
-import br.com.giovanniramos.movie_randomizer.services.usecases.UpdateMovieUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.AddMovieUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.GetMovieDetailsUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.LastWatchedMovieUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.MovieDrawUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.RemoveMovieUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.ShowMovieListUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.UpdateMovieCoverUseCase;
+import br.com.giovanniramos.movierandomizer.services.usecases.UpdateMovieUseCase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static br.com.giovanniramos.movie_randomizer.services.mocks.MovieMock.movieModelMock;
-import static br.com.giovanniramos.movie_randomizer.services.mocks.MovieMock.movieModelWithMovieCoverMock;
+import static br.com.giovanniramos.movierandomizer.mocks.MovieMock.movieModelMock;
+import static br.com.giovanniramos.movierandomizer.mocks.MovieMock.movieModelWithMovieCoverMock;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;

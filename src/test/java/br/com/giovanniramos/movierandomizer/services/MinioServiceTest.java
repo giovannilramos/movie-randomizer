@@ -1,6 +1,6 @@
-package br.com.giovanniramos.movie_randomizer.services;
+package br.com.giovanniramos.movierandomizer.services;
 
-import br.com.giovanniramos.movie_randomizer.exceptions.InternalServerErrorException;
+import br.com.giovanniramos.movierandomizer.exceptions.InternalServerErrorException;
 import io.minio.MinioClient;
 import io.minio.errors.InvalidResponseException;
 import org.junit.jupiter.api.BeforeEach;
