@@ -2,6 +2,7 @@ package br.com.giovanniramos.movierandomizer.controllers;
 
 import br.com.giovanniramos.movierandomizer.controllers.requests.GenreCreateRequest;
 import br.com.giovanniramos.movierandomizer.controllers.responses.GenreResponse;
+import br.com.giovanniramos.movierandomizer.exceptions.BaseException;
 import br.com.giovanniramos.movierandomizer.handlers.responses.ExceptionResponse;
 import br.com.giovanniramos.movierandomizer.handlers.responses.ValidatorsExceptionResponse;
 import br.com.giovanniramos.movierandomizer.services.GenreService;
@@ -43,6 +44,14 @@ public class GenreController {
                                     mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = GenreResponse.class))
                             )
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Internal server error",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = BaseException.class))
+                            )
                     )
             }
     )
@@ -69,6 +78,14 @@ public class GenreController {
                             responseCode = "409",
                             description = "Conflict",
                             content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Internal server error",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = BaseException.class))
+                            )
                     )
             }
     )
