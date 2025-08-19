@@ -24,6 +24,7 @@ import java.util.UUID;
 import static br.com.giovanniramos.movierandomizer.mocks.MovieMock.movieModelMock;
 import static br.com.giovanniramos.movierandomizer.mocks.MovieMock.movieModelWithMovieCoverMock;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -64,36 +65,92 @@ class MovieServiceTest {
 
     @Test
     void shouldAddMovie() {
-        final var movieModel = movieModelWithMovieCoverMock(multiPartFile);
+        final var movieModelMock = movieModelWithMovieCoverMock(multiPartFile);
 
-        when(addMovieUseCase.execute(any())).thenReturn(movieModel);
+        when(addMovieUseCase.execute(any())).thenReturn(movieModelMock);
 
-        assertDoesNotThrow(() -> movieService.addMovie(movieModel));
+        final var movieModel = assertDoesNotThrow(() -> movieService.addMovie(movieModelMock));
+
+        assertEquals(movieModelMock.getName(), movieModel.getName());
+        assertEquals(movieModelMock.getGenres().size(), movieModel.getGenres().size());
+        assertEquals(movieModelMock.getMovieCoverId(), movieModel.getMovieCoverId());
+        assertEquals(movieModelMock.getMovieType(), movieModel.getMovieType());
+        assertEquals(movieModelMock.getIsFirstTimeWatching(), movieModel.getIsFirstTimeWatching());
+        assertEquals(movieModelMock.getAddedBy(), movieModel.getAddedBy());
+        assertEquals(movieModelMock.getNote(), movieModel.getNote());
+        assertEquals(movieModelMock.getComments(), movieModel.getComments());
+        assertEquals(movieModelMock.getDuration(), movieModel.getDuration());
+        assertEquals(movieModelMock.getCreatedAt(), movieModel.getCreatedAt());
+        assertEquals(movieModelMock.getMovieCoverUrl(), movieModel.getMovieCoverUrl());
     }
 
     @Test
     void shouldShowMovieList() {
-        final var movieModel = movieModelMock();
+        final var movieModelMock = movieModelMock();
+        final var pageable = PageRequest.of(0, 10);
 
-        when(showMovieListUseCase.execute(any(), any())).thenReturn(new PageImpl<>(List.of(movieModel)));
+        when(showMovieListUseCase.execute(any(), any())).thenReturn(new PageImpl<>(List.of(movieModelMock), pageable, 1));
 
-        assertDoesNotThrow(() -> movieService.showMovieList(movieModel, PageRequest.of(0, 10)));
+        final var movieModels = assertDoesNotThrow(() -> movieService.showMovieList(movieModelMock, pageable));
+        final var movieModel = movieModels.getContent().getFirst();
+
+        assertEquals(1, movieModels.getTotalElements());
+        assertEquals(0, movieModels.getPageable().getPageNumber());
+        assertEquals(10, movieModels.getPageable().getPageSize());
+        assertEquals(1, movieModels.getTotalPages());
+        assertEquals(movieModelMock.getName(), movieModel.getName());
+        assertEquals(movieModelMock.getGenres().size(), movieModel.getGenres().size());
+        assertEquals(movieModelMock.getMovieCoverId(), movieModel.getMovieCoverId());
+        assertEquals(movieModelMock.getMovieType(), movieModel.getMovieType());
+        assertEquals(movieModelMock.getIsFirstTimeWatching(), movieModel.getIsFirstTimeWatching());
+        assertEquals(movieModelMock.getAddedBy(), movieModel.getAddedBy());
+        assertEquals(movieModelMock.getNote(), movieModel.getNote());
+        assertEquals(movieModelMock.getComments(), movieModel.getComments());
+        assertEquals(movieModelMock.getDuration(), movieModel.getDuration());
+        assertEquals(movieModelMock.getCreatedAt(), movieModel.getCreatedAt());
+        assertEquals(movieModelMock.getMovieCoverUrl(), movieModel.getMovieCoverUrl());
     }
 
     @Test
     void shouldGetMovieDetails() {
-        when(getMovieDetailsUseCase.execute(any())).thenReturn(movieModelMock());
+        final var movieModelMock = movieModelMock();
 
-        assertDoesNotThrow(() -> movieService.getMovieDetails(UUID.randomUUID().toString()));
+        when(getMovieDetailsUseCase.execute(any())).thenReturn(movieModelMock);
+
+        final var movieModel = assertDoesNotThrow(() -> movieService.getMovieDetails(UUID.randomUUID().toString()));
+
+        assertEquals(movieModelMock.getName(), movieModel.getName());
+        assertEquals(movieModelMock.getGenres().size(), movieModel.getGenres().size());
+        assertEquals(movieModelMock.getMovieCoverId(), movieModel.getMovieCoverId());
+        assertEquals(movieModelMock.getMovieType(), movieModel.getMovieType());
+        assertEquals(movieModelMock.getIsFirstTimeWatching(), movieModel.getIsFirstTimeWatching());
+        assertEquals(movieModelMock.getAddedBy(), movieModel.getAddedBy());
+        assertEquals(movieModelMock.getNote(), movieModel.getNote());
+        assertEquals(movieModelMock.getComments(), movieModel.getComments());
+        assertEquals(movieModelMock.getDuration(), movieModel.getDuration());
+        assertEquals(movieModelMock.getCreatedAt(), movieModel.getCreatedAt());
+        assertEquals(movieModelMock.getMovieCoverUrl(), movieModel.getMovieCoverUrl());
     }
 
     @Test
     void shouldDrawMovie() {
-        final var movieModel = movieModelMock();
+        final var movieModelMock = movieModelMock();
 
-        when(movieDrawUseCase.execute(any())).thenReturn(movieModel);
+        when(movieDrawUseCase.execute(any())).thenReturn(movieModelMock);
 
-        assertDoesNotThrow(() -> movieService.movieDraw(Set.of(movieModel.getId(), UUID.randomUUID().toString())));
+        final var movieModel = assertDoesNotThrow(() -> movieService.movieDraw(Set.of(movieModelMock.getId(), UUID.randomUUID().toString())));
+
+        assertEquals(movieModelMock.getName(), movieModel.getName());
+        assertEquals(movieModelMock.getGenres().size(), movieModel.getGenres().size());
+        assertEquals(movieModelMock.getMovieCoverId(), movieModel.getMovieCoverId());
+        assertEquals(movieModelMock.getMovieType(), movieModel.getMovieType());
+        assertEquals(movieModelMock.getIsFirstTimeWatching(), movieModel.getIsFirstTimeWatching());
+        assertEquals(movieModelMock.getAddedBy(), movieModel.getAddedBy());
+        assertEquals(movieModelMock.getNote(), movieModel.getNote());
+        assertEquals(movieModelMock.getComments(), movieModel.getComments());
+        assertEquals(movieModelMock.getDuration(), movieModel.getDuration());
+        assertEquals(movieModelMock.getCreatedAt(), movieModel.getCreatedAt());
+        assertEquals(movieModelMock.getMovieCoverUrl(), movieModel.getMovieCoverUrl());
     }
 
     @Test
@@ -102,7 +159,19 @@ class MovieServiceTest {
 
         when(updateMovieUseCase.execute(any())).thenReturn(movieModelMock);
 
-        assertDoesNotThrow(() -> movieService.updateMovie(movieModelMock));
+        final var movieModel = assertDoesNotThrow(() -> movieService.updateMovie(movieModelMock));
+
+        assertEquals(movieModelMock.getName(), movieModel.getName());
+        assertEquals(movieModelMock.getGenres().size(), movieModel.getGenres().size());
+        assertEquals(movieModelMock.getMovieCoverId(), movieModel.getMovieCoverId());
+        assertEquals(movieModelMock.getMovieType(), movieModel.getMovieType());
+        assertEquals(movieModelMock.getIsFirstTimeWatching(), movieModel.getIsFirstTimeWatching());
+        assertEquals(movieModelMock.getAddedBy(), movieModel.getAddedBy());
+        assertEquals(movieModelMock.getNote(), movieModel.getNote());
+        assertEquals(movieModelMock.getComments(), movieModel.getComments());
+        assertEquals(movieModelMock.getDuration(), movieModel.getDuration());
+        assertEquals(movieModelMock.getCreatedAt(), movieModel.getCreatedAt());
+        assertEquals(movieModelMock.getMovieCoverUrl(), movieModel.getMovieCoverUrl());
     }
 
     @Test
@@ -114,9 +183,23 @@ class MovieServiceTest {
 
     @Test
     void shouldReturnLastWatchedMovie() {
-        when(lastWatchedMovieUseCase.execute()).thenReturn(movieModelMock());
+        final var movieModelMock = movieModelMock();
 
-        assertDoesNotThrow(() -> movieService.lastWatchedMovie());
+        when(lastWatchedMovieUseCase.execute()).thenReturn(movieModelMock);
+
+        final var movieModel = assertDoesNotThrow(() -> movieService.lastWatchedMovie());
+
+        assertEquals(movieModelMock.getName(), movieModel.getName());
+        assertEquals(movieModelMock.getGenres().size(), movieModel.getGenres().size());
+        assertEquals(movieModelMock.getMovieCoverId(), movieModel.getMovieCoverId());
+        assertEquals(movieModelMock.getMovieType(), movieModel.getMovieType());
+        assertEquals(movieModelMock.getIsFirstTimeWatching(), movieModel.getIsFirstTimeWatching());
+        assertEquals(movieModelMock.getAddedBy(), movieModel.getAddedBy());
+        assertEquals(movieModelMock.getNote(), movieModel.getNote());
+        assertEquals(movieModelMock.getComments(), movieModel.getComments());
+        assertEquals(movieModelMock.getDuration(), movieModel.getDuration());
+        assertEquals(movieModelMock.getCreatedAt(), movieModel.getCreatedAt());
+        assertEquals(movieModelMock.getMovieCoverUrl(), movieModel.getMovieCoverUrl());
     }
 
     @Test

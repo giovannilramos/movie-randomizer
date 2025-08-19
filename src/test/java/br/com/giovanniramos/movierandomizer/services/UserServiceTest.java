@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static br.com.giovanniramos.movierandomizer.mocks.LoginMock.loginModelMock;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -24,10 +25,12 @@ class UserServiceTest {
 
     @Test
     void shouldExecuteLogin() {
-        final var loginModel = loginModelMock();
+        final var loginModelMock = loginModelMock();
 
-        when(loginUseCase.execute(any())).thenReturn(loginModel);
+        when(loginUseCase.execute(any())).thenReturn(loginModelMock);
 
-        assertDoesNotThrow(() -> userService.login(loginModel));
+        final var loginModel = assertDoesNotThrow(() -> userService.login(loginModelMock));
+
+        assertEquals(loginModelMock.getToken(), loginModel.getToken());
     }
 }

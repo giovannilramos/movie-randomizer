@@ -12,6 +12,7 @@ import java.util.List;
 
 import static br.com.giovanniramos.movierandomizer.mocks.GenreMock.genreModelMock;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -31,20 +32,29 @@ class GenreServiceTest {
 
     @Test
     void shouldAddGenre() {
-        final var genreModel = genreModelMock();
+        final var genreModelMock = genreModelMock();
 
-        when(addGenreUseCase.execute(any())).thenReturn(genreModel);
+        when(addGenreUseCase.execute(any())).thenReturn(genreModelMock);
 
-        assertDoesNotThrow(() -> genreService.addGenre(genreModel));
+        final var genreModel = assertDoesNotThrow(() -> genreService.addGenre(genreModelMock));
+
+        assertEquals(genreModelMock.getId(), genreModel.getId());
+        assertEquals(genreModelMock.getName(), genreModel.getName());
+        assertEquals(genreModelMock.getDescription(), genreModel.getDescription());
 
         verify(addGenreUseCase, times(1)).execute(any());
     }
 
     @Test
     void shouldListGenres() {
-        when(listGenresUseCase.execute()).thenReturn(List.of(genreModelMock()));
+        final var genreModelMock = genreModelMock();
+        when(listGenresUseCase.execute()).thenReturn(List.of(genreModelMock));
 
-        assertDoesNotThrow(() -> genreService.listGenres());
+        final var genreModel = assertDoesNotThrow(() -> genreService.listGenres()).getFirst();
+
+        assertEquals(genreModelMock.getId(), genreModel.getId());
+        assertEquals(genreModelMock.getName(), genreModel.getName());
+        assertEquals(genreModelMock.getDescription(), genreModel.getDescription());
 
         verify(listGenresUseCase, times(1)).execute();
     }
