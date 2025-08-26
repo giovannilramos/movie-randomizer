@@ -28,6 +28,9 @@ jobs:
       - name: Compile and test
         run: mvn clean compile test-compile
 
+      - name: Verify tests pass
+        run: mvn test
+
       - name: Run PIT Mutation Coverage
         run: mvn org.pitest:pitest-maven:mutationCoverage -DwithHistory
 
