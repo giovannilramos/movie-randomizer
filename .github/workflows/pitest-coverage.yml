@@ -1,0 +1,48 @@
+name: Mutation Testing
+
+on:
+  pull_request:
+    types: [ opened, edited, synchronize, reopened ]
+  push:
+    branches: [ main ]
+jobs:
+  mutation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Run PIT Mutation Coverage
+        run: mvn clean org.pitest:pitest-maven:mutationCoverage
+
+      - name: Create mutation badge
+        run: |
+          MUTATION=$(grep -oP '(?<=<mutationCoverage>)[0-9]+(?=%</mutationCoverage>)' target/pit-reports/*/mutations.xml | head -n1)
+          echo "mutation=${MUTATION}" >> $GITHUB_ENV
+
+      - name: Generate badge
+        uses: emibcn/badge-action@v2
+        with:
+          label: mutation
+          status: ${{ env.mutation }}%
+          color: ${{ env.mutation >= 80 && 'brightgreen' || (env.mutation >= 60 && 'yellow' || 'red') }}
+          path: pit-mutation-badge.svg
+
+      - name: Check mutation coverage
+        run: |
+          if [ "${MUTATION}" -lt 95 ]; then
+            echo "Mutation coverage below 95%! Failing."
+            exit 1
+          fi
