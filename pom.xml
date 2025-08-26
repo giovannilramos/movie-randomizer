@@ -161,6 +161,9 @@
 				<artifactId>pitest-maven</artifactId>
 				<version>1.20.1</version>
 				<configuration>
+					<targetClasses>
+						<param>br.com.giovanniramos.movierandomizer.*</param>
+					</targetClasses>
 					<excludedClasses>
 						<param>br.com.giovanniramos.movierandomizer.configs.*</param>
 						<param>br.com.giovanniramos.movierandomizer.entities.*</param>
