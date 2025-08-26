@@ -33,7 +33,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run Unit Tests + JaCoCo
-        run: mvn clean test jacoco:report
+        run: mvn clean install
 
       - name: Generate JaCoCo Badges for Module Application
         id: jacoco

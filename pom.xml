@@ -169,6 +169,13 @@
 						<param>br.com.giovanniramos.movierandomizer.entities.*</param>
 						<param>br.com.giovanniramos.movierandomizer.repositories.*</param>
 					</excludedClasses>
+					<targetTests>
+						<param>br.com.giovanniramos.movierandomizer.*Test</param>
+					</targetTests>
+					<mutators>
+						<mutator>DEFAULTS</mutator>
+					</mutators>
+					<reportsDirectory>${project.build.directory}/pit-reports</reportsDirectory>
 				</configuration>
 				<dependencies>
 					<dependency>
