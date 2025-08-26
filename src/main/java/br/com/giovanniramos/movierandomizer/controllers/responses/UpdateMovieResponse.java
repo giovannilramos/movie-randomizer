@@ -14,6 +14,9 @@ public record UpdateMovieResponse(
         @Schema(description = "Movie name")
         String name,
 
+        @Schema(description = "Movie description")
+        String description,
+
         @Schema(description = "Movie genres")
         Set<String> genres,
 

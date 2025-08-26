@@ -23,6 +23,7 @@ public class MovieMock {
         return MovieModel.builder()
                 .id(UUID.randomUUID().toString())
                 .name("Name")
+                .description("Description")
                 .movieCoverUrl("https://google.com")
                 .movieCoverId(UUID.randomUUID().toString())
                 .genres(Set.of(genreModelMock().getName()))
@@ -46,6 +47,7 @@ public class MovieMock {
     public static MovieCreateRequest movieCreateRequestMock() {
         return new MovieCreateRequest(
                 "NameEntity",
+                "Description",
                 new MockMultipartFile("movieCoverEntity", "cover.jpg", MediaType.IMAGE_JPEG_VALUE, "file".getBytes()),
                 Set.of(genreModelMock().getName()),
                 SERIES,
@@ -61,6 +63,7 @@ public class MovieMock {
         return MovieEntity.builder()
                 .id(UUID.randomUUID().toString())
                 .name("Name")
+                .description("Description")
                 .movieCoverId(UUID.randomUUID().toString())
                 .genres(Set.of(genreModelMock().getName()))
                 .movieType(MOVIE)
@@ -88,6 +91,7 @@ public class MovieMock {
     public static MovieUpdateRequest movieUpdateRequestMock() {
         return new MovieUpdateRequest(
                 "Name",
+                "Description",
                 Set.of(genreModelMock().getName()),
                 MOVIE,
                 true,

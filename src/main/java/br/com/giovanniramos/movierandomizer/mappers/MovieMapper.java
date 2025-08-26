@@ -45,6 +45,7 @@ public interface MovieMapper {
     @Mapping(target = "movieCover", ignore = true)
     @Mapping(target = "movieCoverId", ignore = true)
     @Mapping(target = "movieCoverUrl", ignore = true)
+    @Mapping(target = "description", ignore = true)
     MovieModel mapToMovieModelFromMovieListParamsRequest(final MovieListParamsRequest movieListParamsRequest);
 
     @Mapping(target = "createdAt", ignore = true)

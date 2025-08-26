@@ -12,6 +12,9 @@ public record MovieUpdateRequest(
         @Schema(description = "Movie name", nullable = true)
         String name,
 
+        @Schema(description = "Movie description", nullable = true)
+        String description,
+
         @Schema(description = "Movie genres", nullable = true)
         Set<String> genres,
 

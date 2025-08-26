@@ -23,6 +23,7 @@ public class MovieEntity {
     private String id;
     @Indexed(unique = true)
     private String name;
+    private String description;
     private String movieCoverId;
     @Indexed
     private Set<String> genres;

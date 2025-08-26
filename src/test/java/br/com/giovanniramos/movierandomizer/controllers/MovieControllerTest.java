@@ -68,6 +68,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Irmão Urso")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "ADVENTURE, ANIMATION, COMEDY, FAMILY")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "false")
@@ -79,6 +80,7 @@ class MovieControllerTest {
                 .andExpect(header().string("Location", endsWith(BASE_URL.concat("/").concat(movieModel.getId()))))
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.description").exists())
                 .andExpect(jsonPath("$.movieCoverUrl").exists())
                 .andExpect(jsonPath("$.genres").exists())
                 .andExpect(jsonPath("$.movieType").exists())
@@ -98,6 +100,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Irmão Urso")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "INVALID_GENRE")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "false")
@@ -114,6 +117,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "ACTION")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "true")
@@ -129,6 +133,7 @@ class MovieControllerTest {
     void shouldTryToAddMovieAndReturn400WhenMovieCoverIsMissing() {
         mockMvc.perform(multipart(BASE_URL)
                         .param("name", "Filme")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "ACTION")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "true")
@@ -145,6 +150,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Filme")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "true")
@@ -161,6 +167,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Filme")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "ACTION")
                         .param("isFirstTimeWatching", "true")
                         .param("addedBy", "Tester")
@@ -176,6 +183,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Filme")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "ACTION")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "true")
@@ -192,6 +200,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Filme")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "ACTION")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "true")
@@ -208,6 +217,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Filme")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "ACTION")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "true")
@@ -224,6 +234,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Filme")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "ACTION")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "true")
@@ -241,6 +252,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Irmão Urso")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "INVALID_GENRE")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "false")
@@ -259,6 +271,7 @@ class MovieControllerTest {
         mockMvc.perform(multipart(BASE_URL)
                         .file(validFile())
                         .param("name", "Irmão Urso")
+                        .param("description", "Filme sobre um caçador que vira urso")
                         .param("genres", "INVALID_GENRE")
                         .param("movieType", "MOVIE")
                         .param("isFirstTimeWatching", "false")
@@ -286,6 +299,7 @@ class MovieControllerTest {
                 .andExpect(jsonPath("$.last").value(true))
                 .andExpect(jsonPath("$.content[0].id").exists())
                 .andExpect(jsonPath("$.content[0].name").exists())
+                .andExpect(jsonPath("$.content[0].description").exists())
                 .andExpect(jsonPath("$.content[0].movieCoverUrl").exists())
                 .andExpect(jsonPath("$.content[0].genres").exists())
                 .andExpect(jsonPath("$.content[0].movieType").exists())
@@ -317,6 +331,7 @@ class MovieControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.description").exists())
                 .andExpect(jsonPath("$.movieCoverUrl").exists())
                 .andExpect(jsonPath("$.genres").exists())
                 .andExpect(jsonPath("$.movieType").exists())
@@ -359,6 +374,7 @@ class MovieControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.description").exists())
                 .andExpect(jsonPath("$.movieCoverUrl").exists())
                 .andExpect(jsonPath("$.genres").exists())
                 .andExpect(jsonPath("$.movieType").exists())
@@ -414,8 +430,9 @@ class MovieControllerTest {
     @SneakyThrows
     void shouldUpdateMovie() {
         final var movieModel = movieModelMock();
-        final var movieUpdateRequest = new MovieUpdateRequest("Name", Set.of("ACTION"), MovieTypeEnum.MOVIE, true,
-                "Giovanni", 10, "Test", LocalTime.of(1, 10));
+        final var movieUpdateRequest = new MovieUpdateRequest("Name", "Description", Set.of("ACTION"),
+                MovieTypeEnum.MOVIE, true, "Giovanni", 10, "Test",
+                LocalTime.of(1, 10));
 
         when(movieService.updateMovie(any())).thenReturn(movieModel);
 
@@ -425,6 +442,7 @@ class MovieControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.description").exists())
                 .andExpect(jsonPath("$.movieCoverUrl").doesNotExist())
                 .andExpect(jsonPath("$.genres").exists())
                 .andExpect(jsonPath("$.movieType").exists())
@@ -440,8 +458,9 @@ class MovieControllerTest {
     @ParameterizedTest
     @CsvSource({ "-1", "11" })
     void shouldTryToUpdateMovieAndReturn400WhenNoteIsInvalid(final Integer note) {
-        final var movieUpdateRequest = new MovieUpdateRequest("Name", Set.of("ACTION"), MovieTypeEnum.MOVIE, true,
-                "Giovanni", note, "Test", LocalTime.of(1, 10));
+        final var movieUpdateRequest = new MovieUpdateRequest("Name", "Description", Set.of("ACTION"),
+                MovieTypeEnum.MOVIE, true, "Giovanni", note, "Test",
+                LocalTime.of(1, 10));
 
         mockMvc.perform(put(BASE_URL.concat("/").concat(UUID.randomUUID().toString()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -452,8 +471,9 @@ class MovieControllerTest {
     @Test
     @SneakyThrows
     void shouldTryToUpdateMovieAndReturn404WhenMovieNotFound() {
-        final var movieUpdateRequest = new MovieUpdateRequest("Name", Set.of("ACTION"), MovieTypeEnum.MOVIE, true,
-                "Giovanni", 10, "Test", LocalTime.of(1, 10));
+        final var movieUpdateRequest = new MovieUpdateRequest("Name", "Description", Set.of("ACTION"),
+                MovieTypeEnum.MOVIE, true, "Giovanni", 10, "Test",
+                LocalTime.of(1, 10));
 
         when(movieService.updateMovie(any())).thenThrow(new NotFoundException("Movie not found"));
 
@@ -466,8 +486,9 @@ class MovieControllerTest {
     @Test
     @SneakyThrows
     void shouldTryToUpdateMovieAndReturn500WhenThrowUnexpectedException() {
-        final var movieUpdateRequest = new MovieUpdateRequest("Name", Set.of("ACTION"), MovieTypeEnum.MOVIE, true,
-                "Giovanni", 10, "Test", LocalTime.of(1, 10));
+        final var movieUpdateRequest = new MovieUpdateRequest("Name", "Description", Set.of("ACTION"),
+                MovieTypeEnum.MOVIE, true, "Giovanni", 10, "Test",
+                LocalTime.of(1, 10));
 
         when(movieService.updateMovie(any())).thenThrow(new RuntimeException());
 
@@ -528,6 +549,7 @@ class MovieControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").exists())
+                .andExpect(jsonPath("$.description").exists())
                 .andExpect(jsonPath("$.movieCoverUrl").exists())
                 .andExpect(jsonPath("$.genres").exists())
                 .andExpect(jsonPath("$.movieType").exists())

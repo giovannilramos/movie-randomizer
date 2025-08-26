@@ -14,6 +14,9 @@ public record MovieResponse(
         @Schema(description = "Movie name")
         String name,
 
+        @Schema(description = "Movie description")
+        String description,
+
         @Schema(description = "Movie cover auto assigned url")
         String movieCoverUrl,
 

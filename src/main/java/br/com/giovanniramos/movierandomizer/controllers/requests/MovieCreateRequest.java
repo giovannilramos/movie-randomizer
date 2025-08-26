@@ -17,6 +17,10 @@ public record MovieCreateRequest(
         @Schema(description = "Movie name")
         String name,
 
+        @NotBlank
+        @Schema(description = "Movie description")
+        String description,
+
         @NotNull
         @Schema(description = "Movie cover")
         MultipartFile movieCover,

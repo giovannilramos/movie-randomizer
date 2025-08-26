@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
 class MovieMapperTest {
 
     @ParameterizedTest
-    @CsvSource(value = {"0", "1"})
+    @CsvSource(value = { "0", "1" })
     void shouldMapToMoviePageResponseFromPage(final int pageNumber) {
         final var movieModelPage = new PageImpl<>(List.of(movieModelMock(), movieModelMock()), PageRequest.of(pageNumber, 1), 2);
         final var movieResponsePageResponse = MOVIE_MAPPER.mapToMoviePageResponseFromPage(movieModelPage);
@@ -111,6 +111,7 @@ class MovieMapperTest {
     void shouldMapToMovieModelFromMovieRequestWithIsFirstTimeWatchingDefaultValueFalse() {
         final var movieCreateRequest = new MovieCreateRequest(
                 "Name",
+                "Description",
                 new MockMultipartFile("movieCover", "cover.jpg", MediaType.IMAGE_JPEG_VALUE, "file".getBytes()),
                 Set.of(genreModelMock().getName()),
                 MOVIE,
@@ -239,7 +240,7 @@ class MovieMapperTest {
         assertNull(MOVIE_MAPPER.mapToUpdateMovieResponseFromMovieModel(null));
         assertNull(MOVIE_MAPPER.mapToUpdateMovieResponseFromMovieModel(MovieModel.builder().build()).genres());
         assertNull(MOVIE_MAPPER.mapToMovieModelFromMovieRequest(null));
-        assertNull(MOVIE_MAPPER.mapToMovieModelFromMovieRequest(new MovieCreateRequest(null, null, null,
+        assertNull(MOVIE_MAPPER.mapToMovieModelFromMovieRequest(new MovieCreateRequest(null, null, null, null,
                 null, null, null, null, null, null)).getGenres());
         assertNull(MOVIE_MAPPER.mapToMovieModelFromMovieEntity(null));
         assertNull(MOVIE_MAPPER.mapToMovieModelFromMovieEntity(MovieEntity.builder().build()).getGenres());
@@ -258,7 +259,7 @@ class MovieMapperTest {
         assertNull(mapToMovieModelFromUpdateRequest.getNote());
         assertNull(mapToMovieModelFromUpdateRequest.getComments());
         assertNull(mapToMovieModelFromUpdateRequest.getDuration());
-        assertNull(MOVIE_MAPPER.mapToMovieModelFromUpdateRequest(null, new MovieUpdateRequest(null, null,
+        assertNull(MOVIE_MAPPER.mapToMovieModelFromUpdateRequest(null, new MovieUpdateRequest(null, null, null,
                 null, null, null, null, null, null)).getGenres());
     }
 

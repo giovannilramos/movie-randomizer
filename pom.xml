@@ -29,6 +29,8 @@
 	<properties>
 		<java.version>23</java.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
+		<sonar.organization>giovannilramos</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -172,10 +174,11 @@
 					<targetTests>
 						<param>br.com.giovanniramos.movierandomizer.*Test</param>
 					</targetTests>
-					<mutators>
-						<mutator>DEFAULTS</mutator>
-					</mutators>
-					<reportsDirectory>${project.build.directory}/pit-reports</reportsDirectory>
+					<threads>4</threads>
+					<outputFormats>
+						<format>XML</format>
+						<format>HTML</format>
+					</outputFormats>
 				</configuration>
 				<dependencies>
 					<dependency>

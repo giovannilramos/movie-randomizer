@@ -18,6 +18,7 @@ import java.util.Set;
 public class MovieModel {
     private String id;
     private String name;
+    private String description;
     private MultipartFile movieCover;
     private String movieCoverUrl;
     private String movieCoverId;
