@@ -7,6 +7,8 @@ import br.com.giovanniramos.movierandomizer.entities.MovieEntity;
 import br.com.giovanniramos.movierandomizer.models.MovieModel;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -35,9 +37,10 @@ import static org.mockito.Mockito.when;
 
 class MovieMapperTest {
 
-    @Test
-    void shouldMapToMoviePageResponseFromPage() {
-        final var movieModelPage = new PageImpl<>(List.of(movieModelMock()), PageRequest.of(0, 10), 1);
+    @ParameterizedTest
+    @CsvSource(value = {"0", "1"})
+    void shouldMapToMoviePageResponseFromPage(final int pageNumber) {
+        final var movieModelPage = new PageImpl<>(List.of(movieModelMock(), movieModelMock()), PageRequest.of(pageNumber, 1), 2);
         final var movieResponsePageResponse = MOVIE_MAPPER.mapToMoviePageResponseFromPage(movieModelPage);
 
         assertEquals(movieModelPage.getTotalPages(), movieResponsePageResponse.totalPages());
